@@ -33,7 +33,7 @@ func main() {
 		untilDateList = append(untilDateList, d.Format("2006-01-02"))
 		fmt.Println(d.Format("2006-01-02"))
 	}
-	for i := 0; i <= len(sinceDateList); i = i + 1{
+	for i := 0; i < len(sinceDateList); i = i + 1{
 		query := Arguments.Query + sinceDateList[i] + " until:" + untilDateList[i]	
     	Core.Main(&(query), &(Arguments.Instance), &(Arguments.Format), &(Arguments.Name))
     }
