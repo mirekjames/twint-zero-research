@@ -20,10 +20,6 @@ func FormatTweets(format string, tweets []Tweet, Name *string) {
 	}
 }
 
-func printHeadings(){
-
-}
-
 func FormatTweetsCSV(tweets []Tweet, Name *string) {
 	nameValue := *Name
 	file, err := os.OpenFile("./Data/" + nameValue + ".csv", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)

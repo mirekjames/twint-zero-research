@@ -18,15 +18,15 @@ func main() {
 		startDateComponents := strings.Split(Arguments.StartDate, "-")
 		startYear, err := strconv.Atoi(startDateComponents[0])
 		if err != nil{
-			fmt.Println(err)
+			fmt.Println("no start year: ", err)
 		}
 		startMonth, err := strconv.Atoi(startDateComponents[1])
 		if err != nil{
-			fmt.Println(err)
+			fmt.Println("no start month: ", err)
 		}
 		startDay, err := strconv.Atoi(startDateComponents[2])
 			if err != nil{
-			fmt.Println(err)
+			fmt.Println("no start day: ", err)
 		}
 
 		start = time.Date(startYear, time.Month(startMonth), startDay, 0, 0, 0, 0, time.UTC)
@@ -38,15 +38,15 @@ func main() {
 		endDateComponents := strings.Split(Arguments.EndDate, "-")
 		endYear, err := strconv.Atoi(endDateComponents[0])
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println("no end year: ", err)
 		}
 		endMonth, err := strconv.Atoi(endDateComponents[1])
 		if err != nil{
-			fmt.Println(err)
+			fmt.Println("no end month: ", err)
 		}
 		endDay, err := strconv.Atoi(endDateComponents[2])
 		if err != nil{
-			fmt.Println(err)
+			fmt.Println("no end day: ", err)
 		}	
 
 		end = time.Date(endYear, time.Month(endMonth), endDay, 0, 0, 0, 0, time.UTC)
@@ -72,31 +72,29 @@ func main() {
 	fmt.Println(start)
 	fmt.Println(end)
 
-	if Arguments.StartDate == "" && Arguments.EndDate == "" {
-		fmt.Println("no dates")
-		query := Arguments.Query
-		for i := 0; i < len(sinceDateList); i = i + 1{
-    		Core.Main(&(query), &(Arguments.Instance), &(Arguments.Format), &(Arguments.Name))
-    	}
-	} else if Arguments.StartDate != "" && Arguments.EndDate == "" {
-		fmt.Println("start only")
-		fmt.Println(len(sinceDateList))
-		for i := 0; i < len(sinceDateList); i = i + 1{
-			query := Arguments.Query + " since:" + sinceDateList[i]
-			fmt.Println(query)
-	    	Core.Main(&(query), &(Arguments.Instance), &(Arguments.Format), &(Arguments.Name))
-	    }	
-	} else if Arguments.StartDate == "" && Arguments.EndDate != "" {
-		fmt.Println("end only")
-		for i := 0; i < len(sinceDateList); i = i + 1{
-			query := Arguments.Query + " until:" + untilDateList[i]	
-	    	Core.Main(&(query), &(Arguments.Instance), &(Arguments.Format), &(Arguments.Name))
-	    }
-	} else if Arguments.StartDate != "" && Arguments.EndDate != "" {
-		fmt.Println("both dates")
-		for i := 0; i < len(sinceDateList); i = i + 1{
-			query := Arguments.Query + " since:" + sinceDateList[i] + " until:" + untilDateList[i]	
-	    	Core.Main(&(query), &(Arguments.Instance), &(Arguments.Format), &(Arguments.Name))
-	    }	
-	}
+	for i := 0; i < len(sinceDateList); i = i + 1{
+		query := Arguments.Query + " since:" + sinceDateList[i] + " until:" + untilDateList[i]	
+    	Core.Main(&(query), &(Arguments.Instance), &(Arguments.Format), &(Arguments.Name))
+    }
+
+	// } else if Arguments.StartDate != "" && Arguments.EndDate == "" {
+	// 	fmt.Println("start only")
+	// 	fmt.Println(len(sinceDateList))
+	// 	for i := 0; i < len(sinceDateList); i = i + 1{
+	// 		query := Arguments.Query + " since:" + sinceDateList[i] + " until:" + untilDateList[i]
+	//     	Core.Main(&(query), &(Arguments.Instance), &(Arguments.Format), &(Arguments.Name))
+	//     }	
+	// } else if Arguments.StartDate == "" && Arguments.EndDate != "" {
+	// 	fmt.Println("end only")
+	// 	for i := 0; i < len(sinceDateList); i = i + 1{
+	// 		query := Arguments.Query + " since:" + sinceDateList[i] + " until:" + untilDateList[i]	
+	//     	Core.Main(&(query), &(Arguments.Instance), &(Arguments.Format), &(Arguments.Name))
+	//     }
+	// } else if Arguments.StartDate != "" && Arguments.EndDate != "" {
+	// 	fmt.Println("both dates")
+	// 	for i := 0; i < len(sinceDateList); i = i + 1{
+	// 		query := Arguments.Query + " since:" + sinceDateList[i] + " until:" + untilDateList[i]	
+	//     	Core.Main(&(query), &(Arguments.Instance), &(Arguments.Format), &(Arguments.Name))
+	//     }	
+	// }
 }	
