@@ -10,6 +10,8 @@ import (
 	"os"
 )
 
+var firstRun = true
+
 func FormatTweets(format string, tweets []Tweet, Name *string) {
 	if format == "json" {
 		FormatTweetsJSON(tweets, Name)
@@ -18,9 +20,13 @@ func FormatTweets(format string, tweets []Tweet, Name *string) {
 	}
 }
 
+func printHeadings(){
+
+}
+
 func FormatTweetsCSV(tweets []Tweet, Name *string) {
 	nameValue := *Name
-	file, err := os.OpenFile("../Data" + nameValue + ".csv", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := os.OpenFile("./Data/" + nameValue + ".csv", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	defer file.Close()
 	if err != nil {
 		log.Fatalln("failed to open file", err)
@@ -34,21 +40,28 @@ func FormatTweetsCSV(tweets []Tweet, Name *string) {
 
 	//writer that exports to CSV
 	csvW := csv.NewWriter(file)
-	headings := []string{
-		"Tweet ID",
-		"URL",
-		"Date",
-		"Handle",
-		"Display Name",
-		"Attachments",
-		"Replies",
-		"Retweets",
-		"Quotes",
-		"Likes",
+
+	if firstRun == true {
+		headings := []string{
+			"Tweet ID",
+			"URL",
+			"Date",
+			"Handle",
+			"Display Name",
+			"Text",
+			"Attachments",
+			"Replies",
+			"Retweets",
+			"Quotes",
+			"Likes",
+		}
+		if err := csvW.Write(headings); err != nil{
+			log.Fatalln("error writing headings to csv buffer:", err)
+		}
+		firstRun = false
 	}
-	if err := csvW.Write(headings); err != nil{
-		log.Fatalln("error writing headings to csv buffer:", err)
-	}
+
+
 
 	for _, tweet := range tweets {
 
@@ -79,15 +92,12 @@ func FormatTweetsCSV(tweets []Tweet, Name *string) {
 		if err := csvW.Write(row); err != nil{
 			log.Fatalln("error writing row to csv buffer:", err)
 		}
-
-		fmt.Print(row)
 	}
 	w.Flush()
 	csvW.Flush()
 	if err := w.Error(); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Print(string(buf.Bytes()))
 }
 
 func FormatTweetsJSON(tweets []Tweet, Name *string) {
