@@ -11,6 +11,7 @@ type Arguments struct {
 	Format   string
 	Name     string
 	StartDate string
+	EndDate string
 	// DateIncrement int
 }
 
@@ -22,7 +23,8 @@ func InputParser() *Arguments {
 	flag.StringVar(&(arguments.Instance), "Instance", "nitter.nl", "Specify instance to get data from.")
 	flag.StringVar(&(arguments.Format), "Format", "csv", "Specify the return format: csv (default), or json.")
 	flag.StringVar(&(arguments.Name), "Name", "tweets", "Specify the filename (without file extension).")
-	flag.StringVar(&(arguments.StartDate), "StartDate", "2009", "Specify the start year in format YYYY")
+	flag.StringVar(&(arguments.StartDate), "StartDate", "", "Specify the start date in format YYYY-MM-DD")
+	flag.StringVar(&(arguments.EndDate), "EndDate", "", "Specify the end date in format YYYY-MM-DD")
 	// flag.IntVar(&(arguments.DateIncrement), "DateIncrement", "1", "Specify how many days in include in each scrape request.")
 	flag.Parse()
 

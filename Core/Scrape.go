@@ -68,7 +68,6 @@ func videoURLToTwimg(ur string) (ret *string) {
 }
 
 func Scrape(responseBody io.ReadCloser, Name *string, Format *string, cursor *string) bool {
-	fmt.Println("starting to scrape")
 	parsedWebpage, err := goquery.NewDocumentFromReader(responseBody)
 	if err != nil {
 		log.Fatal("[x] cannot parse webpage. Please report to admins with the query attached.")
