@@ -1,4 +1,4 @@
-Fork of twint-zero, edited for academic scraping purposes
+Clone of [twint-zero](https://github.com/twintproject/twint-zero), edited for academic research purposes by Mirek Stolee.
 
 # Twint Zero
 Like Twint, but zero fat.
